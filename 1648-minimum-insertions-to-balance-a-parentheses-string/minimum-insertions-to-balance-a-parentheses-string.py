@@ -1,24 +1,26 @@
 class Solution:
     def minInsertions(self, s: str) -> int:
-        insertions = 0
+        insertion = 0
         open = 0
         i = 0
-        n = len(s)
-        while i < n :
+        while i < len(s) :
             if s[i] == '(' :
                 open += 1
-                i += 1
             else :
                 if open > 0 :
-                    open -= 1
+                    if i + 1 < len(s) and s[i+1] == ')' :
+                        open -= 1
+                        i += 1
+                    else :
+                        insertion += 1
+                        open -= 1
                 else :
-                    insertions += 1
-                if i + 1 < n and s[i+1] == ')' :
-                    i += 2
-                else :
-                    insertions += 1
-                    i += 1
-        insertions += open * 2
-        return insertions
-                
+                    insertion += 1
+                    if i + 1 < len(s) and s[i+1] == ')' :
+                        i += 1
+                    else :
+                        insertion += 1
+            i += 1
+        insertion += open * 2
+        return insertion
         
